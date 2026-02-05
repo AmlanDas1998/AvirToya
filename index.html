@@ -6,11 +6,16 @@
   <title>Avir Toya â€“ Premium Handcrafted Mocktails</title>
   <style>
     :root {
-      --bg: #0f0f0f;
-      --card: #181818;
-      --text: #f5f5f5;
-      --muted: #b5b5b5;
-      --accent: #8fd3c8;
+      --bg: #f2fbfb;
+      --card: #ffffff;
+      --text: #1e2f2f;
+      --muted: #5f7777;
+      --accent: #7ccfc6;
+      --surface: #ffffff;
+      --surface-alt: #eef8f7;
+      --border: #d7ecea;
+      --shadow: 0 10px 24px rgba(31, 80, 80, 0.08);
+      --shadow-soft: 0 6px 16px rgba(31, 80, 80, 0.08);
     }
 
     * {
@@ -21,7 +26,7 @@
     }
 
     body {
-      background: var(--bg);
+      background: #f4fbfb;
       color: var(--text);
       line-height: 1.6;
     }
@@ -38,12 +43,14 @@
       top: 0;
       width: 100%;
       height: 56px;
-      background: rgba(15,15,15,0.85);
+      background: rgba(255, 255, 255, 0.72);
       backdrop-filter: blur(8px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 1000;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(70, 120, 120, 0.08);
     }
 
     header nav {
@@ -51,20 +58,59 @@
       max-width: 1200px;
       padding: 0 16px;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
+      gap: 12px;
     }
 
     header nav span {
-      font-weight: 600;
-      letter-spacing: 0.5px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
     }
 
     section {
       padding: 96px 16px 72px;
       max-width: 1200px;
       margin: auto;
+      background: transparent;
+      transition: background-color 200ms ease;
     }
+
+    #bestsellers {
+      background-color: #eef7f7;
+    }
+
+    .story {
+      background-color: #f2fbfb;
+    }
+
+    #menu {
+      background-color: #eaf6f5;
+    }
+
+    #testimonials {
+      background-color: #eff9f8;
+    }
+
+    .availability {
+      background-color: #edf7f6;
+    }
+
+    footer {
+      background-color: #f1fbfb;
+    }
+
+    .hero {
+      background-color: #edf8f7;
+    }
+
+    #home.section-active { background-color: #e6f4f2; }
+    #bestsellers.section-active { background-color: #e2f2f1; }
+    .story.section-active { background-color: #e8f5f4; }
+    #menu.section-active { background-color: #dfeeee; }
+    #testimonials.section-active { background-color: #e4f3f2; }
+    .availability.section-active { background-color: #e3f2f1; }
+    footer.section-active { background-color: #eaf6f5; }
 
     .hero {
       position: relative;
@@ -80,7 +126,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(255, 255, 255, 0.22);
       z-index: 1;
     }
 
@@ -101,12 +147,96 @@
     .hero h1 {
       font-size: clamp(2.4rem, 6vw, 4rem);
       margin-bottom: 12px;
+      color: #0f4d4a;
+      text-shadow: 0 6px 18px rgba(12, 64, 64, 0.12);
     }
 
     .hero p {
       max-width: 480px;
       margin: auto;
-      color: var(--muted);
+      color: rgba(15, 77, 74, 0.75);
+      text-shadow: 0 4px 16px rgba(12, 64, 64, 0.08);
+    }
+
+    .brand-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      display: block;
+      height: 24px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .header-logo {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .logo-hero {
+      height: 120px;
+      width: auto;
+      margin: 0 auto 10px;
+      display: block;
+      object-fit: contain;
+      position: fixed;
+      left: var(--logo-left, 50%);
+      top: var(--logo-top, 45%);
+      transform: translate(-50%, -50%) scale(var(--logo-scale, 1));
+      transition: transform 240ms cubic-bezier(0.22, 1.4, 0.36, 1), left 240ms cubic-bezier(0.22, 1.15, 0.36, 1), top 240ms cubic-bezier(0.22, 1.15, 0.36, 1);
+      z-index: 1100;
+      pointer-events: none;
+    }
+
+    .brand-text {
+      font-family: "Times New Roman", Georgia, "Palatino Linotype", serif;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-weight: 500;
+      color: #0f4d4a;
+    }
+
+    .brand-text.stacked {
+      display: inline-block;
+      line-height: 1.05;
+    }
+
+    .brand-text.stacked span {
+      display: block;
+    }
+
+    .hero .tagline {
+      margin-top: 6px;
+      font-size: 0.95rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(15, 77, 74, 0.7);
+    }
+
+    .hero-title-mask {
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    .hero-title {
+      display: inline-block;
+      transform: translateY(120%);
+      transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .hero .tagline {
+      transform: translateY(120%);
+      opacity: 0;
+      transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 520ms ease;
+    }
+
+    body.hero-reveal .hero-title,
+    body.hero-reveal .hero .tagline {
+      transform: translateY(0);
+      opacity: 1;
     }
 
     h2 {
@@ -134,7 +264,8 @@
       min-width: 220px;
       background: var(--card);
       padding: 16px;
-      border-radius: 12px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-soft);
       scroll-snap-align: start;
     }
 
@@ -165,9 +296,10 @@
     .menu-item {
       background: var(--card);
       padding: 14px;
-      border-radius: 12px;
+      border-radius: 16px;
       cursor: pointer;
       transition: transform 0.2s ease;
+      box-shadow: var(--shadow-soft);
     }
 
     .menu-item:hover { transform: translateY(-2px); }
@@ -181,7 +313,7 @@
       width: 100%;
       height: 130px;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 12px;
       display: block;
       margin-bottom: 10px;
     }
@@ -206,20 +338,21 @@
     .modal-backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(31, 80, 80, 0.22);
     }
 
     .modal-sheet {
       position: relative;
       width: 100%;
       max-width: 720px;
-      background: var(--bg);
+      background: var(--surface);
       color: var(--text);
       display: flex;
       flex-direction: column;
       min-height: 100%;
       animation: modalIn 260ms ease;
       z-index: 1;
+      box-shadow: 0 30px 60px rgba(25, 70, 70, 0.18);
     }
 
     .modal-close {
@@ -229,9 +362,9 @@
       height: 36px;
       width: 36px;
       border-radius: 50%;
-      border: 1px solid #2a2a2a;
-      background: rgba(20, 20, 20, 0.8);
-      color: var(--text);
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.9);
+      color: #204040;
       font-size: 20px;
       line-height: 1;
       cursor: pointer;
@@ -248,9 +381,9 @@
       width: 100%;
       height: 240px;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: 14px;
       margin-bottom: 16px;
-      background: #101010;
+      background: #e8f3f2;
     }
 
     .modal-desc {
@@ -282,20 +415,21 @@
     .modal-bar {
       position: sticky;
       bottom: 0;
-      background: rgba(15, 15, 15, 0.95);
-      border-top: 1px solid #1f1f1f;
+      background: rgba(255, 255, 255, 0.92);
+      border-top: 1px solid var(--border);
       padding: 12px 16px;
     }
 
     .modal-cta {
       width: 100%;
       padding: 14px 16px;
-      border-radius: 12px;
+      border-radius: 14px;
       border: none;
       background: var(--accent);
-      color: #0b0b0b;
+      color: #0f2c2c;
       font-weight: 600;
       cursor: pointer;
+      box-shadow: 0 10px 20px rgba(76, 169, 160, 0.28);
     }
 
     @keyframes modalIn {
@@ -314,7 +448,8 @@
       min-width: 260px;
       background: var(--card);
       padding: 16px;
-      border-radius: 12px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-soft);
       font-size: 0.9rem;
       color: var(--muted);
     }
@@ -328,9 +463,10 @@
     .bulk {
       margin-top: 16px;
       padding: 14px;
-      border-radius: 10px;
-      background: #101f1c;
-      color: var(--accent);
+      border-radius: 14px;
+      background: #e8f7f4;
+      color: #2d6b67;
+      box-shadow: var(--shadow-soft);
     }
 
     /* Footer */
@@ -338,7 +474,8 @@
       padding: 48px 16px;
       text-align: center;
       color: var(--muted);
-      border-top: 1px solid #222;
+      border-top: 1px solid var(--border);
+      transition: background-color 200ms ease;
     }
 
     @media (min-width: 768px) {
@@ -346,6 +483,8 @@
       .modal-content { padding: 20px 24px 104px; }
       .modal-image { height: 280px; }
       .modal-bar { padding: 16px 24px; }
+      .logo { height: 26px; }
+      .logo-hero { height: 160px; }
     }
   </style>
 </head>
@@ -353,7 +492,10 @@
 
 <header>
   <nav>
-    <span>Avir Toya</span>
+    <div class="brand-lockup">
+      <img class="logo header-logo" src="assets/logo/avir-toya-logo.jpeg" alt="Avir Toya logo" />
+      <span class="brand-text">Avir Toya</span>
+    </div>
   </nav>
 </header>
 
@@ -361,7 +503,11 @@
   <video autoplay muted loop playsinline>
     <source src="assets/video/hero.mp4" type="video/mp4" />
   </video>
-  <h1>Avir Toya</h1>
+  <img class="logo-hero" src="assets/logo/avir-toya-logo.jpeg" alt="Avir Toya logo" />
+  <div class="hero-title-mask">
+    <h1 class="brand-text stacked hero-title"><span>Avir</span><span>Toya</span></h1>
+  </div>
+  <p class="tagline">Pure. Cold. Crafted.</p>
   <p>Premium handcrafted mocktails. Freshly prepared, flavor-forward, and thoughtfully designed.</p>
 </section>
 
@@ -570,6 +716,84 @@
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const body = document.body;
+    const hero = document.getElementById('home');
+    const motionLogo = document.querySelector('.logo-hero');
+    const headerLogo = document.querySelector('.header-logo');
+    const sections = Array.from(document.querySelectorAll('section, footer'));
+
+    let startRect = null;
+    let baseLogoHeight = 0;
+    let ticking = false;
+
+    const setLogoPosition = (rect, scale) => {
+      if (!motionLogo || !rect) return;
+      const left = rect.left + rect.width / 2;
+      const top = rect.top + rect.height / 2;
+      motionLogo.style.setProperty('--logo-left', `${left}px`);
+      motionLogo.style.setProperty('--logo-top', `${top}px`);
+      motionLogo.style.setProperty('--logo-scale', scale.toFixed(3));
+    };
+
+    const measureLogo = () => {
+      if (!motionLogo) return;
+      startRect = motionLogo.getBoundingClientRect();
+      baseLogoHeight = startRect.height || motionLogo.naturalHeight || 120;
+      setLogoPosition(startRect, 1);
+    };
+
+    const updateLogoDock = () => {
+      if (!hero || !motionLogo || !headerLogo || !startRect) return;
+      const docked = window.scrollY > hero.offsetHeight * 0.6;
+      const targetRect = docked ? headerLogo.getBoundingClientRect() : startRect;
+      const scale = docked ? Math.max(0.2, targetRect.height / baseLogoHeight) : 1;
+      setLogoPosition(targetRect, scale);
+      body.classList.toggle('logo-docked', docked);
+    };
+
+    const updateActiveSection = () => {
+      const anchor = window.innerHeight * 0.35;
+      let current = sections[0];
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= anchor && rect.bottom > anchor) current = section;
+      });
+      sections.forEach(section => {
+        section.classList.toggle('section-active', section === current);
+      });
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        updateLogoDock();
+        updateActiveSection();
+        ticking = false;
+      });
+    };
+
+    measureLogo();
+    updateLogoDock();
+    updateActiveSection();
+    body.classList.add('hero-reveal');
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => {
+      measureLogo();
+      updateLogoDock();
+      updateActiveSection();
+    });
+    window.addEventListener('load', () => {
+      measureLogo();
+      updateLogoDock();
+      updateActiveSection();
     });
   });
 </script>
