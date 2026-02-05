@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avir Toya | 22 Handcrafted Flavors</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1a3c34; --white: #f9f9f9; --clay: #d97d54; --mint: #a8dadc; --text: #1a1a1a;
+        }
+
+        * { box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; font-family: 'Space Grotesk', sans-serif; scroll-snap-type: y mandatory; overflow-x: hidden; background: var(--white); color: var(--text); }
+
+        section { height: 100vh; width: 100vw; display: flex; flex-direction: column; justify-content: center; align-items: center; scroll-snap-align: start; position: relative; overflow: hidden; }
+
+        /* 1. HERO VIDEO */
+        .hero video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.5); }
+        .hero-content { color: white; text-align: center; z-index: 1; }
+        .hero h1 { font-size: 4.5rem; margin: 0; letter-spacing: -4px; line-height: 0.8; }
+
+        /* TICKER */
+        .ticker { position: absolute; bottom: 0; width: 100%; background: #000; color: #fff; padding: 12px 0; overflow: hidden; white-space: nowrap; z-index: 2; }
+        .ticker-content { display: inline-block; animation: marquee 20s linear infinite; font-weight: bold; text-transform: uppercase; }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* 2. BESTSELLERS (Horizontal Swipe) */
+        .swipe-container { display: flex; overflow-x: auto; gap: 20px; width: 100%; padding: 20px; scroll-snap-type: x mandatory; }
+        .swipe-card { min-width: 280px; background: white; border: 3px solid #000; border-radius: 20px; box-shadow: 8px 8px 0px #000; scroll-snap-align: center; }
+        .swipe-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 17px 17px 0 0; border-bottom: 3px solid #000; }
+        .card-info { padding: 15px; }
+
+        /* 3. OUR STORY */
+        .story { background: var(--clay); color: white; text-align: center; padding: 40px; }
+        .story p { max-width: 320px; font-size: 1.2rem; line-height: 1.6; }
+
+        /* 4. FULL MENU GRID (The Big List) */
+        .full-menu-section { height: auto; min-height: 100vh; padding: 80px 15px; scroll-snap-align: none; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 500px; }
+        .grid-item { border: 2px solid #000; border-radius: 12px; padding: 12px; background: white; box-shadow: 4px 4px 0px #000; transition: 0.2s; cursor: pointer; }
+        .grid-item:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px #000; }
+        .grid-item h3 { font-size: 0.85rem; margin: 0; text-transform: uppercase; }
+        .grid-item p { font-size: 0.7rem; color: #555; margin: 5px 0 0 0; line-height: 1.2; }
+
+        /* 5. CTA / CONVERSION */
+        .cta { background: var(--mint); text-align: center; }
+        .btn { display: block; width: 85%; max-width: 320px; padding: 20px; margin: 10px auto; background: #000; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <video autoplay muted loop playsinline><source src="hero-video.mp4" type="video/mp4"></video>
+        <div class="hero-content">
+            <h1>AVIR<br>TOYA</h1>
+            <p>Premium Handcrafted Mocktails</p>
+        </div>
+        <div class="ticker"><div class="ticker-content">
+            FRESHLY PREPARED • FLAVOR-FORWARD • NON-ALCOHOLIC • CRAFTED WITH INTENTION • 
+            FRESHLY PREPARED • FLAVOR-FORWARD • NON-ALCOHOLIC • CRAFTED WITH INTENTION • 
+        </div></div>
+    </section>
+
+    <section>
+        <h2 style="margin-bottom: 0;">Bestsellers</h2>
+        <div class="swipe-container">
+            <div class="swipe-card">
+                <img src="mojito.jpg" alt="Mojito">
+                <div class="card-info"><h3>Classic Virgin Mojito Fizz</h3><p>Fresh lime, mint, crisp sparkle</p></div>
+            </div>
+            <div class="swipe-card">
+                <img src="blue-splash.jpg" alt="Blue Splash">
+                <div class="card-info"><h3>Electric Blue Curacao Splash</h3><p>Bold citrus, smooth sweetness</p></div>
+            </div>
+            <div class="swipe-card">
+                <img src="kala-khatta.jpg" alt="Kala Khatta">
+                <div class="card-info"><h3>Nostalgic Kala Khatta Sparkler</h3><p>Tangy, fizzy, nostalgic</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="story">
+        <h2>Our Story</h2>
+        <p>Avir Toya exists at the intersection of flavour, freshness, and restraint. Every drink is intentional—not improvised, not mass-produced, and never rushed.</p>
+    </section>
+
+    <section class="full-menu-section">
+        <h2 style="text-align: center;">Full Menu</h2>
+        <div class="menu-grid">
+            <div class="grid-item"><h3>Virgin Mojito Fizz</h3><p>Fresh lime • mint • sparkle</p></div>
+            <div class="grid-item"><h3>Blue Curacao Splash</h3><p>Citrus • smooth sweetness</p></div>
+            <div class="grid-item"><h3>Kala Khatta Sparkler</h3><p>Tangy • fizzy • nostalgic</p></div>
+            <div class="grid-item"><h3>Blood Orange Spritz</h3><p>Bright citrus • light bitterness</p></div>
+            <div class="grid-item"><h3>Blueberry Blast</h3><p>Deep blueberry • mellow sweet</p></div>
+            <div class="grid-item"><h3>Royal Paan Fresco</h3><p>Cooling • aromatic • refreshing</p></div>
+            <div class="grid-item"><h3>Green Apple Cooler</h3><p>Sharp apple • chilled finish</p></div>
+            <div class="grid-item"><h3>Watermelon Chill</h3><p>Light • hydrating • clean</p></div>
+            <div class="grid-item"><h3>Tropical Malt Beer</h3><p>Malt depth • tropical notes</p></div>
+            <div class="grid-item"><h3>Strawberry Lemonade</h3><p>Sweet strawberry • fresh lemon</p></div>
+            <div class="grid-item"><h3>Alphonso Mango Fusion</h3><p>Rich mango • smooth body</p></div>
+            <div class="grid-item"><h3>Cranberry Cosmo Fizz</h3><p>Cranberry • refined fizz</p></div>
+            <div class="grid-item"><h3>Peach Paradise Iced</h3><p>Soft peach • mellow chill</p></div>
+            <div class="grid-item"><h3>The Grenadine Glow</h3><p>Sweet-tart pomegranate</p></div>
+            <div class="grid-item"><h3>Kala Khatta Shot Pack</h3><p>Concentrated • punchy flavour</p></div>
+            <div class="grid-item"><h3>Fruit Beer Pitcher</h3><p>Shareable • malt & fruit</p></div>
+            <div class="grid-item"><h3>The Weekend Mixer</h3><p>Easy-drinking mixed mocktail</p></div>
+            <div class="grid-item"><h3>Mini Blue Splash</h3><p>Compact citrus refreshment</p></div>
+            <div class="grid-item"><h3>Mini Mango Rush</h3><p>Small, rich mango hit</p></div>
+            <div class="grid-item"><h3>Mini Minty Lime</h3><p>Quick lime & mint refresh</p></div>
+            <div class="grid-item"><h3>Blueberry-Cranberry Duo</h3><p>Balanced berry blend</p></div>
+            <div class="grid-item"><h3>Mango-Peach Tropical</h3><p>Layered tropical fruits</p></div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Order Now</h2>
+        <a href="#" class="btn">Order on Swiggy</a>
+        <a href="#" class="btn" style="background:white; color:black; border:2px solid black;">Order on Zomato</a>
+        <p style="margin-top:20px;"><strong>Planning a Party?</strong></p>
+        <a href="https://wa.me/91XXXXXXXXXX" class="btn" style="background:#25D366;">WhatsApp Bulk Orders</a>
+    </section>
+
+</body>
+</html>
