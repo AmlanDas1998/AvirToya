@@ -1,125 +1,578 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avir Toya | 22 Handcrafted Flavors</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --forest: #1a3c34; --white: #f9f9f9; --clay: #d97d54; --mint: #a8dadc; --text: #1a1a1a;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avir Toya â€“ Premium Handcrafted Mocktails</title>
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --card: #181818;
+      --text: #f5f5f5;
+      --muted: #b5b5b5;
+      --accent: #8fd3c8;
+    }
 
-        * { box-sizing: border-box; }
-        body, html { margin: 0; padding: 0; font-family: 'Space Grotesk', sans-serif; scroll-snap-type: y mandatory; overflow-x: hidden; background: var(--white); color: var(--text); }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Inter, system-ui, sans-serif;
+    }
 
-        section { height: 100vh; width: 100vw; display: flex; flex-direction: column; justify-content: center; align-items: center; scroll-snap-align: start; position: relative; overflow: hidden; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-        /* 1. HERO VIDEO */
-        .hero video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.5); }
-        .hero-content { color: white; text-align: center; z-index: 1; }
-        .hero h1 { font-size: 4.5rem; margin: 0; letter-spacing: -4px; line-height: 0.8; }
+    body.modal-open {
+      overflow: hidden;
+      height: 100vh;
+    }
 
-        /* TICKER */
-        .ticker { position: absolute; bottom: 0; width: 100%; background: #000; color: #fff; padding: 12px 0; overflow: hidden; white-space: nowrap; z-index: 2; }
-        .ticker-content { display: inline-block; animation: marquee 20s linear infinite; font-weight: bold; text-transform: uppercase; }
-        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    a { color: inherit; text-decoration: none; }
 
-        /* 2. BESTSELLERS (Horizontal Swipe) */
-        .swipe-container { display: flex; overflow-x: auto; gap: 20px; width: 100%; padding: 20px; scroll-snap-type: x mandatory; }
-        .swipe-card { min-width: 280px; background: white; border: 3px solid #000; border-radius: 20px; box-shadow: 8px 8px 0px #000; scroll-snap-align: center; }
-        .swipe-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 17px 17px 0 0; border-bottom: 3px solid #000; }
-        .card-info { padding: 15px; }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 56px;
+      background: rgba(15,15,15,0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
 
-        /* 3. OUR STORY */
-        .story { background: var(--clay); color: white; text-align: center; padding: 40px; }
-        .story p { max-width: 320px; font-size: 1.2rem; line-height: 1.6; }
+    header nav {
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        /* 4. FULL MENU GRID (The Big List) */
-        .full-menu-section { height: auto; min-height: 100vh; padding: 80px 15px; scroll-snap-align: none; }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 500px; }
-        .grid-item { border: 2px solid #000; border-radius: 12px; padding: 12px; background: white; box-shadow: 4px 4px 0px #000; transition: 0.2s; cursor: pointer; }
-        .grid-item:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px #000; }
-        .grid-item h3 { font-size: 0.85rem; margin: 0; text-transform: uppercase; }
-        .grid-item p { font-size: 0.7rem; color: #555; margin: 5px 0 0 0; line-height: 1.2; }
+    header nav span {
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
 
-        /* 5. CTA / CONVERSION */
-        .cta { background: var(--mint); text-align: center; }
-        .btn { display: block; width: 85%; max-width: 320px; padding: 20px; margin: 10px auto; background: #000; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-    </style>
+    section {
+      padding: 96px 16px 72px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 1;
+    }
+
+    .hero video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 480px;
+      margin: auto;
+      color: var(--muted);
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      margin-bottom: 16px;
+    }
+
+    .sub {
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    /* Bestsellers */
+    .carousel {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 8px;
+    }
+
+    .carousel::-webkit-scrollbar { display: none; }
+
+    .card {
+      min-width: 220px;
+      background: var(--card);
+      padding: 16px;
+      border-radius: 12px;
+      scroll-snap-align: start;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* Story */
+    .story p {
+      max-width: 680px;
+      margin-bottom: 16px;
+      color: var(--muted);
+    }
+
+    /* Menu */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .menu-item {
+      background: var(--card);
+      padding: 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .menu-item:hover { transform: translateY(-2px); }
+
+    .menu-item h4 {
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .menu-item span {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: stretch;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .modal.open { display: flex; }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-sheet {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      animation: modalIn 260ms ease;
+      z-index: 1;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      height: 36px;
+      width: 36px;
+      border-radius: 50%;
+      border: 1px solid #2a2a2a;
+      background: rgba(20, 20, 20, 0.8);
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .modal-content {
+      padding: 16px 16px 96px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      background: #101010;
+    }
+
+    .modal-desc {
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .modal-section h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .modal-list {
+      list-style: disc;
+      padding-left: 20px;
+      margin-bottom: 18px;
+      color: var(--muted);
+    }
+
+    .modal-serving {
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .modal-spacer {
+      height: 48px;
+    }
+
+    .modal-bar {
+      position: sticky;
+      bottom: 0;
+      background: rgba(15, 15, 15, 0.95);
+      border-top: 1px solid #1f1f1f;
+      padding: 12px 16px;
+    }
+
+    .modal-cta {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: none;
+      background: var(--accent);
+      color: #0b0b0b;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    @keyframes modalIn {
+      from { transform: translateY(18px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Testimonials */
+    .testimonials {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+    }
+
+    .testimonial {
+      min-width: 260px;
+      background: var(--card);
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Availability */
+    .availability p {
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .bulk {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 10px;
+      background: #101f1c;
+      color: var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      padding: 48px 16px;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid #222;
+    }
+
+    @media (min-width: 768px) {
+      section { padding: 120px 24px; }
+      .modal-content { padding: 20px 24px 104px; }
+      .modal-image { height: 280px; }
+      .modal-bar { padding: 16px 24px; }
+    }
+  </style>
 </head>
 <body>
 
-    <section class="hero">
-        <video autoplay muted loop playsinline><source src="hero-video.mp4" type="video/mp4"></video>
-        <div class="hero-content">
-            <h1>AVIR<br>TOYA</h1>
-            <p>Premium Handcrafted Mocktails</p>
-        </div>
-        <div class="ticker"><div class="ticker-content">
-            FRESHLY PREPARED • FLAVOR-FORWARD • NON-ALCOHOLIC • CRAFTED WITH INTENTION • 
-            FRESHLY PREPARED • FLAVOR-FORWARD • NON-ALCOHOLIC • CRAFTED WITH INTENTION • 
-        </div></div>
-    </section>
+<header>
+  <nav>
+    <span>Avir Toya</span>
+  </nav>
+</header>
 
-    <section>
-        <h2 style="margin-bottom: 0;">Bestsellers</h2>
-        <div class="swipe-container">
-            <div class="swipe-card">
-                <img src="mojito.jpg" alt="Mojito">
-                <div class="card-info"><h3>Classic Virgin Mojito Fizz</h3><p>Fresh lime, mint, crisp sparkle</p></div>
-            </div>
-            <div class="swipe-card">
-                <img src="blue-splash.jpg" alt="Blue Splash">
-                <div class="card-info"><h3>Electric Blue Curacao Splash</h3><p>Bold citrus, smooth sweetness</p></div>
-            </div>
-            <div class="swipe-card">
-                <img src="kala-khatta.jpg" alt="Kala Khatta">
-                <div class="card-info"><h3>Nostalgic Kala Khatta Sparkler</h3><p>Tangy, fizzy, nostalgic</p></div>
-            </div>
-        </div>
-    </section>
+<section class="hero" id="home">
+  <video autoplay muted loop playsinline>
+    <source src="assets/video/hero.mp4" type="video/mp4" />
+  </video>
+  <h1>Avir Toya</h1>
+  <p>Premium handcrafted mocktails. Freshly prepared, flavor-forward, and thoughtfully designed.</p>
+</section>
 
-    <section class="story">
-        <h2>Our Story</h2>
-        <p>Avir Toya exists at the intersection of flavour, freshness, and restraint. Every drink is intentional—not improvised, not mass-produced, and never rushed.</p>
-    </section>
+<section id="bestsellers">
+  <h2>Bestsellers</h2>
+  <p class="sub">Most ordered. Most loved.</p>
+  <div class="carousel">
+    <div class="card"><h3>Classic Virgin Mojito Fizz</h3><p>Fresh lime â€¢ mint â€¢ sparkle</p></div>
+    <div class="card"><h3>Electric Blue Curacao Splash</h3><p>Bold citrus â€¢ smooth sweetness</p></div>
+    <div class="card"><h3>Nostalgic Kala Khatta Sparkler</h3><p>Tangy â€¢ fizzy â€¢ familiar</p></div>
+    <div class="card"><h3>Midnight Blueberry Blast</h3><p>Deep blueberry â€¢ mellow</p></div>
+    <div class="card"><h3>Royal Paan Fresco Digestive</h3><p>Cooling â€¢ aromatic</p></div>
+    <div class="card"><h3>Alphonso Mango Fusion</h3><p>Rich Alphonso mango</p></div>
+  </div>
+</section>
 
-    <section class="full-menu-section">
-        <h2 style="text-align: center;">Full Menu</h2>
-        <div class="menu-grid">
-            <div class="grid-item"><h3>Virgin Mojito Fizz</h3><p>Fresh lime • mint • sparkle</p></div>
-            <div class="grid-item"><h3>Blue Curacao Splash</h3><p>Citrus • smooth sweetness</p></div>
-            <div class="grid-item"><h3>Kala Khatta Sparkler</h3><p>Tangy • fizzy • nostalgic</p></div>
-            <div class="grid-item"><h3>Blood Orange Spritz</h3><p>Bright citrus • light bitterness</p></div>
-            <div class="grid-item"><h3>Blueberry Blast</h3><p>Deep blueberry • mellow sweet</p></div>
-            <div class="grid-item"><h3>Royal Paan Fresco</h3><p>Cooling • aromatic • refreshing</p></div>
-            <div class="grid-item"><h3>Green Apple Cooler</h3><p>Sharp apple • chilled finish</p></div>
-            <div class="grid-item"><h3>Watermelon Chill</h3><p>Light • hydrating • clean</p></div>
-            <div class="grid-item"><h3>Tropical Malt Beer</h3><p>Malt depth • tropical notes</p></div>
-            <div class="grid-item"><h3>Strawberry Lemonade</h3><p>Sweet strawberry • fresh lemon</p></div>
-            <div class="grid-item"><h3>Alphonso Mango Fusion</h3><p>Rich mango • smooth body</p></div>
-            <div class="grid-item"><h3>Cranberry Cosmo Fizz</h3><p>Cranberry • refined fizz</p></div>
-            <div class="grid-item"><h3>Peach Paradise Iced</h3><p>Soft peach • mellow chill</p></div>
-            <div class="grid-item"><h3>The Grenadine Glow</h3><p>Sweet-tart pomegranate</p></div>
-            <div class="grid-item"><h3>Kala Khatta Shot Pack</h3><p>Concentrated • punchy flavour</p></div>
-            <div class="grid-item"><h3>Fruit Beer Pitcher</h3><p>Shareable • malt & fruit</p></div>
-            <div class="grid-item"><h3>The Weekend Mixer</h3><p>Easy-drinking mixed mocktail</p></div>
-            <div class="grid-item"><h3>Mini Blue Splash</h3><p>Compact citrus refreshment</p></div>
-            <div class="grid-item"><h3>Mini Mango Rush</h3><p>Small, rich mango hit</p></div>
-            <div class="grid-item"><h3>Mini Minty Lime</h3><p>Quick lime & mint refresh</p></div>
-            <div class="grid-item"><h3>Blueberry-Cranberry Duo</h3><p>Balanced berry blend</p></div>
-            <div class="grid-item"><h3>Mango-Peach Tropical</h3><p>Layered tropical fruits</p></div>
-        </div>
-    </section>
+<section class="story" id="story">
+  <h2>Our Story</h2>
+  <p>Avir Toya was created to bring intention back into non-alcoholic drinks. We craft mocktails that are fresh, balanced, and thoughtfully designed.</p>
+  <p>Inspired by Indian flavours, global classics, and seasonal fruits, every drink is prepared with care and consistency.</p>
+  <p>We focus on quality over shortcuts, balance over excess, and experience over gimmicks.</p>
+</section>
 
-    <section class="cta">
-        <h2>Order Now</h2>
-        <a href="#" class="btn">Order on Swiggy</a>
-        <a href="#" class="btn" style="background:white; color:black; border:2px solid black;">Order on Zomato</a>
-        <p style="margin-top:20px;"><strong>Planning a Party?</strong></p>
-        <a href="https://wa.me/91XXXXXXXXXX" class="btn" style="background:#25D366;">WhatsApp Bulk Orders</a>
-    </section>
+<section id="menu">
+  <h2>Full Menu</h2>
+  <p class="sub">Tap any drink to explore details.</p>
+  <div class="menu-grid">
+    <div class="menu-item"><img src="assets/menu/Virgin Mojito Fizz.png" alt="Classic Virgin Mojito Fizz" loading="lazy" /><h4>Classic Virgin Mojito Fizz</h4><span>Fresh lime â€¢ mint</span></div>
+    <div class="menu-item"><img src="assets/menu/Blue Curacao Splash.png" alt="Electric Blue Curacao Splash" loading="lazy" /><h4>Electric Blue Curacao Splash</h4><span>Citrus â€¢ smooth</span></div>
+    <div class="menu-item"><img src="assets/menu/Kala Khatta Sparkler.png" alt="Nostalgic Kala Khatta Sparkler" loading="lazy" /><h4>Nostalgic Kala Khatta Sparkler</h4><span>Tangy â€¢ fizzy</span></div>
+    <div class="menu-item"><img src="assets/menu/Blood Orange Spritz.png" alt="Sunset Blood Orange Spritz" loading="lazy" /><h4>Sunset Blood Orange Spritz</h4><span>Bright citrus</span></div>
+    <div class="menu-item"><img src="assets/menu/Blueberry Blast.png" alt="Midnight Blueberry Blast" loading="lazy" /><h4>Midnight Blueberry Blast</h4><span>Rich blueberry</span></div>
+    <div class="menu-item"><img src="assets/menu/Royal Paan Fresco.png" alt="Royal Paan Fresco Digestive" loading="lazy" /><h4>Royal Paan Fresco Digestive</h4><span>Cooling â€¢ aromatic</span></div>
+    <div class="menu-item"><img src="assets/menu/Green Apple Cooler.png" alt="Zesty Green Apple Cooler" loading="lazy" /><h4>Zesty Green Apple Cooler</h4><span>Sharp apple</span></div>
+    <div class="menu-item"><img src="assets/menu/Watermelon Chill.png" alt="Summer Watermelon Chill" loading="lazy" /><h4>Summer Watermelon Chill</h4><span>Light â€¢ hydrating</span></div>
+    <div class="menu-item"><img src="assets/menu/Tropical Malt Beer.png" alt="Tropical Malt Beer (Non-Alc)" loading="lazy" /><h4>Tropical Malt Beer (Non-Alc)</h4><span>Malt â€¢ tropical</span></div>
+    <div class="menu-item"><img src="assets/menu/Strawberry Lemonade.png" alt="Strawberry Blush Lemonade" loading="lazy" /><h4>Strawberry Blush Lemonade</h4><span>Strawberry â€¢ lemon</span></div>
+    <div class="menu-item"><img src="assets/menu/Alphonso Mango Fusion.png" alt="Alphonso Mango Fusion" loading="lazy" /><h4>Alphonso Mango Fusion</h4><span>Rich mango</span></div>
+    <div class="menu-item"><img src="assets/menu/Cranberry Cosmo Fizz.png" alt="Velvet Cranberry Cosmo Fizz" loading="lazy" /><h4>Velvet Cranberry Cosmo Fizz</h4><span>Cranberry â€¢ fizz</span></div>
+    <div class="menu-item"><img src="assets/menu/Peach Paradise Iced.png" alt="Peach Paradise Iced Pour" loading="lazy" /><h4>Peach Paradise Iced Pour</h4><span>Soft peach</span></div>
+    <div class="menu-item"><img src="assets/menu/The Grenadine Glow.png" alt="The Grenadine Glow" loading="lazy" /><h4>The Grenadine Glow</h4><span>Pomegranate</span></div>
+    <div class="menu-item"><img src="assets/menu/Kala Khatta Shot Pack.png" alt="Kala Khatta Shot Pack" loading="lazy" /><h4>Kala Khatta Shot Pack</h4><span>Concentrated</span></div>
+    <div class="menu-item"><img src="assets/menu/Fruit Beer Pitcher.png" alt="Tropical Fruit Beer Pitcher" loading="lazy" /><h4>Tropical Fruit Beer Pitcher</h4><span>Shareable</span></div>
+    <div class="menu-item"><img src="assets/menu/The Weekend Mixer.png" alt="The Weekend Mixer" loading="lazy" /><h4>The Weekend Mixer</h4><span>Easy-drinking</span></div>
+    <div class="menu-item"><img src="assets/menu/Mini Blue Splash.png" alt="Mini Blue Splash" loading="lazy" /><h4>Mini Blue Splash</h4><span>Compact citrus</span></div>
+    <div class="menu-item"><img src="assets/menu/Mini Mango Rush.png" alt="Mini Mango Rush" loading="lazy" /><h4>Mini Mango Rush</h4><span>Mango hit</span></div>
+    <div class="menu-item"><img src="assets/menu/Mini Minty Lime.png" alt="Mini Minty Lime" loading="lazy" /><h4>Mini Minty Lime</h4><span>Lime â€¢ mint</span></div>
+    <div class="menu-item"><img src="assets/menu/Blueberry-Cranberry Duo.png" alt="Blueberry-Cranberry Duo" loading="lazy" /><h4>Blueberry-Cranberry Duo</h4><span>Berry blend</span></div>
+    <div class="menu-item"><img src="assets/menu/Mango-Peach Tropical.png" alt="Mango-Peach Tropical Combo" loading="lazy" /><h4>Mango-Peach Tropical Combo</h4><span>Tropical fruit</span></div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <h2>What Customers Say</h2>
+  <div class="testimonials">
+    <div class="testimonial">Clean flavours, not overly sweet.</div>
+    <div class="testimonial">Finally a mocktail brand that tastes fresh.</div>
+    <div class="testimonial">Kala Khatta brought back memories.</div>
+    <div class="testimonial">Perfect non-alcoholic option for parties.</div>
+  </div>
+</section>
+
+<section class="availability" id="order">
+  <h2>Order & Availability</h2>
+  <p>Available on Swiggy and Zomato for convenient delivery.</p>
+  <div class="bulk">Planning a party or event? Contact us directly for bulk and large orders.</div>
+</section>
+
+<footer id="contact">
+  <p><strong>Avir Toya</strong></p>
+  <p>Pimple Gurav, Pune â€“ 411061</p>
+  <p>Instagram â€¢ Contact for Bulk Orders</p>
+  <p style="margin-top:8px;">Crafted with intent. Served fresh.</p>
+</footer>
+
+<div class="modal" id="product-modal" aria-hidden="true">
+  <div class="modal-backdrop" data-modal-close></div>
+  <div class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" type="button" aria-label="Close" data-modal-close>×</button>
+    <div class="modal-content">
+      <img class="modal-image" src="" alt="" />
+      <h2 id="modal-title"></h2>
+      <p class="modal-desc"></p>
+      <div class="modal-section">
+        <h3>Flavour Profile</h3>
+        <ul class="modal-list"></ul>
+      </div>
+      <p class="modal-serving"><strong>Serving:</strong> <span></span></p>
+      <div class="modal-spacer"></div>
+    </div>
+    <div class="modal-bar">
+      <button class="modal-cta" type="button">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('product-modal');
+    const modalImage = modal.querySelector('.modal-image');
+    const modalTitle = modal.querySelector('#modal-title');
+    const modalDesc = modal.querySelector('.modal-desc');
+    const modalList = modal.querySelector('.modal-list');
+    const modalServing = modal.querySelector('.modal-serving span');
+
+    const normalize = (text) => (text || '').replace(/\s+/g, ' ').trim();
+
+    const buildBullets = (cue) => {
+      const cleaned = normalize(cue);
+      const parts = cleaned.split('•').map(p => p.trim()).filter(Boolean);
+      const candidates = [];
+
+      parts.forEach(part => {
+        candidates.push(part);
+        part.split(' ').forEach(word => {
+          const w = word.trim();
+          if (w) candidates.push(w);
+        });
+      });
+
+      const unique = [];
+      candidates.forEach(item => {
+        const exists = unique.some(u => u.toLowerCase() === item.toLowerCase());
+        if (!exists) unique.push(item);
+      });
+
+      if (unique.length < 3 && cleaned) unique.push(cleaned);
+      return unique.slice(0, 3);
+    };
+
+    const buildDescription = (cue) => {
+      const cleaned = normalize(cue);
+      if (!cleaned) return '';
+      return `Flavour cues: ${cleaned}. Built around those core notes.`;
+    };
+
+    const servingStyle = (name, cue) => {
+      const text = `${name} ${cue}`.toLowerCase();
+      if (/(fizz|sparkle|sparkler|spritz|splash)/.test(text)) return 'Sparkling';
+      if (/(iced|chill|chilled)/.test(text)) return 'Chilled';
+      if (/beer/.test(text)) return 'Sparkling';
+      return 'Chilled';
+    };
+
+    const openModal = (data) => {
+      modalTitle.textContent = data.name || '';
+      modalDesc.textContent = data.description || '';
+      modalServing.textContent = data.serving || '';
+
+      modalList.innerHTML = '';
+      data.bullets.forEach(text => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        modalList.appendChild(li);
+      });
+
+      if (data.image) {
+        modalImage.src = data.image;
+        modalImage.alt = data.name || '';
+      } else {
+        modalImage.removeAttribute('src');
+        modalImage.alt = data.name || '';
+      }
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    };
+
+    document.querySelectorAll('.menu-item').forEach(item => {
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+
+      const handler = () => {
+        const name = normalize(item.querySelector('h4')?.textContent);
+        const cue = normalize(item.querySelector('span')?.textContent);
+        const image = item.querySelector('img')?.getAttribute('src') || '';
+
+        openModal({
+          name,
+          image,
+          description: buildDescription(cue),
+          bullets: buildBullets(cue),
+          serving: servingStyle(name, cue)
+        });
+      };
+
+      item.addEventListener('click', handler);
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handler();
+        }
+      });
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target.matches('[data-modal-close]')) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+  });
+</script>
 
 </body>
 </html>
