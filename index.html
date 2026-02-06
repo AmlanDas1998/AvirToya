@@ -58,9 +58,32 @@
       max-width: 1200px;
       padding: 0 16px;
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-between;
       align-items: center;
       gap: 12px;
+    }
+
+    .header-cta {
+      font-family: "Times New Roman", Georgia, "Palatino Linotype", serif;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+      color: #0f4d4a;
+      text-decoration: none;
+      transition: opacity 0.2s ease, text-decoration 0.2s ease;
+    }
+
+    .header-cta:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    .header-cta-left {
+      margin-right: auto;
+    }
+
+    .header-cta-right {
+      margin-left: auto;
     }
 
     header nav span {
@@ -71,7 +94,7 @@
     section {
       padding: 96px 16px 72px;
       max-width: 1200px;
-      margin: auto;
+      margin: 0 auto;
       background: transparent;
       transition: background-color 200ms ease;
     }
@@ -122,13 +145,6 @@
       overflow: hidden;
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.22);
-      z-index: 1;
-    }
 
     .hero video {
       position: absolute;
@@ -176,19 +192,40 @@
       pointer-events: none;
     }
 
+    body.logo-docked .header-logo {
+      opacity: 1;
+      pointer-events: auto;
+      transition: opacity 180ms ease;
+    }
+
+    .intro {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #f2e9e4; /* Default pastel, will be overridden by JS */
+    }
+
     .logo-hero {
-      height: 120px;
-      width: auto;
-      margin: 0 auto 10px;
       display: block;
+      height: 140px;
+      width: auto;
       object-fit: contain;
       position: fixed;
-      left: var(--logo-left, 50%);
-      top: var(--logo-top, 45%);
+      left: 50%;
+      top: var(--logo-top, 50%);
       transform: translate(-50%, -50%) scale(var(--logo-scale, 1));
-      transition: transform 240ms cubic-bezier(0.22, 1.4, 0.36, 1), left 240ms cubic-bezier(0.22, 1.15, 0.36, 1), top 240ms cubic-bezier(0.22, 1.15, 0.36, 1);
-      z-index: 1100;
+      transition:
+        transform 240ms cubic-bezier(0.22, 1.4, 0.36, 1),
+        top 240ms cubic-bezier(0.22, 1.15, 0.36, 1);
+      z-index: 1200;
       pointer-events: none;
+    }
+
+    body.logo-docked .logo-hero {
+      z-index: 999;
     }
 
     .brand-text {
@@ -267,7 +304,11 @@
       border-radius: 16px;
       box-shadow: var(--shadow-soft);
       scroll-snap-align: start;
+      cursor: pointer;
+      transition: transform 0.2s ease;
     }
+
+    .card:hover { transform: translateY(-2px); }
 
     .card h3 {
       font-size: 1rem;
@@ -277,6 +318,19 @@
     .card p {
       font-size: 0.85rem;
       color: var(--muted);
+    }
+
+    .card img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .bestseller-item {
+      position: relative;
     }
 
     /* Story */
@@ -478,6 +532,67 @@
       transition: background-color 200ms ease;
     }
 
+    /* Elegant side borders */
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 12px;
+      background: linear-gradient(to right, rgba(124, 207, 198, 0.15), rgba(124, 207, 198, 0));
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    body::before {
+      left: 0;
+      transform: translateX(-100%);
+    }
+
+    body::after {
+      right: 0;
+      transform: translateX(100%);
+      background: linear-gradient(to left, rgba(124, 207, 198, 0.15), rgba(124, 207, 198, 0));
+    }
+
+    /* Elegant left scrollbar */
+    body::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: transparent;
+      margin-top: 56px; /* Account for header height */
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background: rgba(124, 207, 198, 0.4);
+      border-radius: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+      background: rgba(124, 207, 198, 0.6);
+    }
+
+    /* Position scrollbar on left side */
+    body {
+      scrollbar-color: rgba(124, 207, 198, 0.4) transparent;
+      scrollbar-width: thin;
+    }
+
+    /* Firefox scrollbar positioning workaround */
+    html {
+      direction: rtl;
+    }
+
+    body {
+      direction: ltr;
+      margin-left: 0;
+    }
+
     @media (min-width: 768px) {
       section { padding: 120px 24px; }
       .modal-content { padding: 20px 24px 104px; }
@@ -492,18 +607,23 @@
 
 <header>
   <nav>
+    <a href="#" class="header-cta header-cta-left">Home</a>
     <div class="brand-lockup">
       <img class="logo header-logo" src="assets/logo/avir-toya-logo.jpeg" alt="Avir Toya logo" />
       <span class="brand-text">Avir Toya</span>
     </div>
+    <a href="#" class="header-cta header-cta-right">Shop</a>
   </nav>
 </header>
+
+<section class="intro" id="intro">
+  <img class="logo-hero" src="assets/logo/avir-toya-logo.jpeg" alt="Avir Toya logo" />
+</section>
 
 <section class="hero" id="home">
   <video autoplay muted loop playsinline>
     <source src="assets/video/hero.mp4" type="video/mp4" />
   </video>
-  <img class="logo-hero" src="assets/logo/avir-toya-logo.jpeg" alt="Avir Toya logo" />
   <div class="hero-title-mask">
     <h1 class="brand-text stacked hero-title"><span>Avir</span><span>Toya</span></h1>
   </div>
@@ -515,12 +635,12 @@
   <h2>Bestsellers</h2>
   <p class="sub">Most ordered. Most loved.</p>
   <div class="carousel">
-    <div class="card"><h3>Classic Virgin Mojito Fizz</h3><p>Fresh lime â€¢ mint â€¢ sparkle</p></div>
-    <div class="card"><h3>Electric Blue Curacao Splash</h3><p>Bold citrus â€¢ smooth sweetness</p></div>
-    <div class="card"><h3>Nostalgic Kala Khatta Sparkler</h3><p>Tangy â€¢ fizzy â€¢ familiar</p></div>
-    <div class="card"><h3>Midnight Blueberry Blast</h3><p>Deep blueberry â€¢ mellow</p></div>
-    <div class="card"><h3>Royal Paan Fresco Digestive</h3><p>Cooling â€¢ aromatic</p></div>
-    <div class="card"><h3>Alphonso Mango Fusion</h3><p>Rich Alphonso mango</p></div>
+    <div class="card bestseller-item"><img src="assets/menu/Virgin Mojito Fizz.png" alt="Classic Virgin Mojito Fizz" loading="lazy" /><h3>Classic Virgin Mojito Fizz</h3><p>Fresh lime â€¢ mint â€¢ sparkle</p></div>
+    <div class="card bestseller-item"><img src="assets/menu/Blue Curacao Splash.png" alt="Electric Blue Curacao Splash" loading="lazy" /><h3>Electric Blue Curacao Splash</h3><p>Bold citrus â€¢ smooth sweetness</p></div>
+    <div class="card bestseller-item"><img src="assets/menu/Kala Khatta Sparkler.png" alt="Nostalgic Kala Khatta Sparkler" loading="lazy" /><h3>Nostalgic Kala Khatta Sparkler</h3><p>Tangy â€¢ fizzy â€¢ familiar</p></div>
+    <div class="card bestseller-item"><img src="assets/menu/Blueberry Blast.png" alt="Midnight Blueberry Blast" loading="lazy" /><h3>Midnight Blueberry Blast</h3><p>Deep blueberry â€¢ mellow</p></div>
+    <div class="card bestseller-item"><img src="assets/menu/Royal Paan Fresco.png" alt="Royal Paan Fresco Digestive" loading="lazy" /><h3>Royal Paan Fresco Digestive</h3><p>Cooling â€¢ aromatic</p></div>
+    <div class="card bestseller-item"><img src="assets/menu/Alphonso Mango Fusion.png" alt="Alphonso Mango Fusion" loading="lazy" /><h3>Alphonso Mango Fusion</h3><p>Rich Alphonso mango</p></div>
   </div>
 </section>
 
@@ -605,6 +725,25 @@
 </div>
 
 <script>
+  // Dynamic pastel background for intro section
+  (function() {
+    const intro = document.getElementById('intro');
+    const pastelColors = [
+      '#F2E9E4', // Soft beige
+      '#EAF4F4', // Light teal
+      '#F6F1EB', // Warm cream
+      '#EDE7F6', // Lavender
+      '#E8F5E9', // Mint
+      '#FFF1E6', // Peach
+      '#F0F4FF'  // Light blue
+    ];
+    
+    const randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+    intro.style.background = randomColor;
+  })();
+</script>
+
+<script>
   document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('product-modal');
     const modalImage = modal.querySelector('.modal-image');
@@ -683,13 +822,19 @@
       document.body.classList.remove('modal-open');
     };
 
-    document.querySelectorAll('.menu-item').forEach(item => {
+    // Handle both menu items and bestseller items with the same logic
+    document.querySelectorAll('.menu-item, .bestseller-item').forEach(item => {
       item.setAttribute('role', 'button');
       item.setAttribute('tabindex', '0');
 
       const handler = () => {
-        const name = normalize(item.querySelector('h4')?.textContent);
-        const cue = normalize(item.querySelector('span')?.textContent);
+        // Determine selectors based on item type
+        const isBestseller = item.classList.contains('bestseller-item');
+        const nameSelector = isBestseller ? 'h3' : 'h4';
+        const cueSelector = isBestseller ? 'p' : 'span';
+        
+        const name = normalize(item.querySelector(nameSelector)?.textContent);
+        const cue = normalize(item.querySelector(cueSelector)?.textContent);
         const image = item.querySelector('img')?.getAttribute('src') || '';
 
         openModal({
@@ -710,6 +855,75 @@
       });
     });
 
+    // Auto-rotating infinite carousel for bestsellers
+    const carousel = document.querySelector('.carousel');
+    if (carousel) {
+      let autoScrollInterval;
+      let isHovering = false;
+      let currentScroll = 0;
+      let scrollDirection = 1; // 1 for right, -1 for left
+      const scrollStep = 2; // pixels per frame
+      const scrollDuration = 600; // ms per move
+      const pauseDuration = 3000; // ms between moves
+
+      const startAutoScroll = () => {
+        if (isHovering || autoScrollInterval) return;
+        
+        autoScrollInterval = setInterval(() => {
+          const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+          
+          if (scrollDirection === 1) {
+            // Moving right
+            currentScroll += scrollStep;
+            if (currentScroll >= maxScroll) {
+              currentScroll = maxScroll;
+              scrollDirection = -1; // Change direction
+            }
+          } else {
+            // Moving left
+            currentScroll -= scrollStep;
+            if (currentScroll <= 0) {
+              currentScroll = 0;
+              scrollDirection = 1; // Change direction
+            }
+          }
+          
+          carousel.scrollLeft = currentScroll;
+        }, 16); // ~60fps
+      };
+
+      const stopAutoScroll = () => {
+        if (autoScrollInterval) {
+          clearInterval(autoScrollInterval);
+          autoScrollInterval = null;
+        }
+      };
+
+      // Start auto-scroll
+      startAutoScroll();
+
+      // Pause on hover
+      carousel.addEventListener('mouseenter', () => {
+        isHovering = true;
+        stopAutoScroll();
+      });
+
+      carousel.addEventListener('mouseleave', () => {
+        isHovering = false;
+        startAutoScroll();
+      });
+
+      // Stop auto-scroll on manual interaction
+      carousel.addEventListener('scroll', () => {
+        if (!isHovering) {
+          stopAutoScroll();
+          setTimeout(() => {
+            if (!isHovering) startAutoScroll();
+          }, pauseDuration);
+        }
+      });
+    }
+
     modal.addEventListener('click', (e) => {
       if (e.target.matches('[data-modal-close]')) closeModal();
     });
@@ -723,7 +937,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
-    const hero = document.getElementById('home');
+    const hero = document.getElementById('intro');
     const motionLogo = document.querySelector('.logo-hero');
     const headerLogo = document.querySelector('.header-logo');
     const sections = Array.from(document.querySelectorAll('section, footer'));
@@ -731,12 +945,30 @@
     let startRect = null;
     let baseLogoHeight = 0;
     let ticking = false;
+    let introOffset = 0;
+
+    // Pre-intro scroll speed enhancement
+    const updateIntroScroll = () => {
+      if (!hero) return;
+      const scrollY = window.scrollY;
+      // Apply faster scroll effect (0.6x multiplier as specified)
+      const translateY = -Math.min(scrollY * 0.6, hero.offsetHeight);
+      hero.style.transform = `translateY(${translateY}px)`;
+      
+      // Disable pointer events when fully exited
+      if (translateY <= -hero.offsetHeight) {
+        hero.style.pointerEvents = 'none';
+      } else {
+        hero.style.pointerEvents = 'auto';
+      }
+    };
 
     const setLogoPosition = (rect, scale) => {
       if (!motionLogo || !rect) return;
-      const left = rect.left + rect.width / 2;
+      // Lock horizontal position to center (50vw) - FIXED
+      const left = '50vw';
       const top = rect.top + rect.height / 2;
-      motionLogo.style.setProperty('--logo-left', `${left}px`);
+      motionLogo.style.setProperty('--logo-left', left);
       motionLogo.style.setProperty('--logo-top', `${top}px`);
       motionLogo.style.setProperty('--logo-scale', scale.toFixed(3));
     };
@@ -750,9 +982,22 @@
 
     const updateLogoDock = () => {
       if (!hero || !motionLogo || !headerLogo || !startRect) return;
-      const docked = window.scrollY > hero.offsetHeight * 0.6;
+      
+      // Enhanced logo transformation logic
+      const heroHeight = hero.offsetHeight;
+      const scrollProgress = Math.min(window.scrollY / (heroHeight * 0.8), 1);
+      
+      // Logo should dock when scroll progress reaches 60%
+      const docked = scrollProgress >= 0.6;
+      
+      // Smooth interpolation for logo movement
       const targetRect = docked ? headerLogo.getBoundingClientRect() : startRect;
-      const scale = docked ? Math.max(0.2, targetRect.height / baseLogoHeight) : 1;
+      
+      // Enhanced scaling logic - logo should be approximately 2x the size of CTAs
+      const ctaHeight = 26; // Approximate height of CTAs
+      const targetLogoHeight = ctaHeight * 2; // 2x CTA size
+      const scale = docked ? Math.max(0.15, targetLogoHeight / baseLogoHeight) : 1;
+      
       setLogoPosition(targetRect, scale);
       body.classList.toggle('logo-docked', docked);
     };
@@ -773,6 +1018,7 @@
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(() => {
+        updateIntroScroll();
         updateLogoDock();
         updateActiveSection();
         ticking = false;
@@ -782,7 +1028,9 @@
     measureLogo();
     updateLogoDock();
     updateActiveSection();
-    body.classList.add('hero-reveal');
+    setTimeout(() => {
+      body.classList.add('hero-reveal');
+    }, 120);
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', () => {
